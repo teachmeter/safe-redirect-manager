@@ -100,7 +100,8 @@ class SRM_Redirect {
 			$parsed_home_url = parse_url( home_url() ); // phpcs:ignore
 		}
 
-		if ( isset( $parsed_home_url['path'] ) && '/' !== $parsed_home_url['path'] ) {
+		$matchesLangCode = preg_match('/^(\/[a-zA-Z]{2}\/)$/m', $parsed_home_url['path']) === 1;
+		if ( isset( $parsed_home_url['path'] ) && '/' !== $parsed_home_url['path'] && ! $matchesLangCode) {
 			$requested_path = preg_replace( '@' . $parsed_home_url['path'] . '@i', '', $requested_path, 1 );
 		}
 
